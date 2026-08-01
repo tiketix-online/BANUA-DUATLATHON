@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -11,61 +10,189 @@
 <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Barlow+Condensed:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-  :root{
-    --ink:#050a14; --ink-2:#0a1628; --ink-3:#0f2240;
-    --cyan:#00e5ff; --orange:#ff6b1a; --red:#ff3855;
-    --green:#2cff9a; --blue:#3b82f6; --fg:#e6f1ff;
-    --muted:#8aa0bd; --border:rgba(0,229,255,0.18);
-  }
-  *{box-sizing:border-box;-webkit-font-smoothing:antialiased}
-  html{scroll-behavior:smooth}
-  body{margin:0;background:var(--ink);color:var(--fg);font-family:'Barlow Condensed',sans-serif;overflow-x:hidden;letter-spacing:.01em;min-height:100vh;display:flex;flex-direction:column}
-  .font-display{font-family:'Russo One',sans-serif;letter-spacing:.02em}
-  .bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,229,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.05) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 30%, #000 30%, transparent 75%)}
-  .bg-orb{position:fixed;border-radius:50%;filter:blur(120px);opacity:.5;z-index:0;pointer-events:none}
-  .orb-1{width:600px;height:600px;background:#0066ff;top:-200px;left:-150px;animation:float1 18s ease-in-out infinite}
-  .orb-2{width:500px;height:500px;background:#ff6b1a;bottom:-200px;right:-150px;opacity:.25;animation:float2 22s ease-in-out infinite}
-  @keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(80px,40px)}}
-  @keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-60px,-30px)}}
-  .noise{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.04;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='.9' numOctaves='2'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='.6'/></svg>")}
-  main,header,footer{position:relative;z-index:2}
-  .topbar{position:sticky;top:0;z-index:50;background:rgba(5,10,20,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
-  .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;background:rgba(255,107,26,.08);border:1px solid rgba(255,107,26,.3);font-weight:600;font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange)}
-  .pill .dot{width:8px;height:8px;border-radius:50%;background:var(--orange);box-shadow:0 0 12px var(--orange);animation:pulse 1.6s infinite}
-  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
-  .pay-card{background:linear-gradient(180deg, rgba(15,34,64,.7), rgba(10,22,40,.85));border:1px solid var(--border);border-radius:24px;padding:48px 40px;max-width:560px;width:100%;text-align:center;box-shadow:0 20px 60px -20px rgba(0,229,255,.15)}
-  .pay-icon-wrap{width:100px;height:100px;margin:0 auto 24px;position:relative;display:grid;place-items:center}
-  .pay-icon-wrap::before{content:'';position:absolute;inset:0;border-radius:50%;background:rgba(255,107,26,.15);animation:ripple 2s ease-out infinite}
-  .pay-icon-wrap::after{content:'';position:absolute;inset:10px;border-radius:50%;background:rgba(255,107,26,.2);animation:ripple 2s ease-out infinite .5s}
-  .pay-icon{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg, var(--orange), #cc4d00);display:grid;place-items:center;font-size:36px;color:#1a0a00;z-index:2;box-shadow:0 10px 30px -5px rgba(255,107,26,.4);animation:pop .6s cubic-bezier(.2,.8,.2,1)}
-  @keyframes ripple{0%{transform:scale(1);opacity:1}100%{transform:scale(1.8);opacity:0}}
-  @keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.1)}100%{transform:scale(1)}}
-  .cta-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 24px;border-radius:12px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:.15em;text-transform:uppercase;transition:all .3s;cursor:pointer;border:none;text-decoration:none;width:100%}
-  .cta-cyan{background:var(--cyan);color:#001824}
-  .cta-cyan:hover{background:#fff;transform:translateY(-2px);box-shadow:0 10px 30px -5px rgba(0,229,255,.5)}
-  .cta-orange{background:var(--orange);color:#1a0a00}
-  .cta-orange:hover{background:#ff8a3d;transform:translateY(-2px);box-shadow:0 10px 30px -5px rgba(255,107,26,.5)}
-  .cta-outline{background:transparent;color:var(--fg);border:1.5px solid var(--border)}
-  .cta-outline:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.05)}
-  .reg-id-box{background:rgba(0,229,255,.05);border:1px dashed var(--cyan);border-radius:16px;padding:20px;margin:24px 0}
-  .reg-id-label{font-size:12px;text-transform:uppercase;letter-spacing:0.2em;color:var(--muted);margin-bottom:8px}
-  .reg-id-value{font-family:'Russo One',sans-serif;font-size:28px;color:var(--cyan);letter-spacing:0.05em}
-  .summary-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--border);text-align:left}
-  .summary-row:last-child{border-bottom:none}
-  .summary-label{color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:.05em}
-  .summary-value{font-weight:600;font-size:16px}
-  .payment-section{margin-top:32px;padding-top:24px;border-top:1px solid var(--border);text-align:center}
-  .payment-title{font-family:'Russo One',sans-serif;font-size:20px;margin-bottom:8px;color:var(--orange);text-transform:uppercase}
-  .payment-desc{font-size:14px;color:var(--muted);margin-bottom:20px}
-  .qris-wrapper{background:#ffffff;padding:16px;border-radius:16px;width:max-content;margin:0 auto 20px;box-shadow:0 10px 30px -10px rgba(0,0,0,.5);display:flex;flex-direction:column;align-items:center}
-  .qris-img{width:220px;height:220px;object-fit:contain}
-  .qris-logo{margin-top:12px;font-weight:800;color:#000;font-size:20px;letter-spacing:2px;display:flex;align-items:center;gap:6px}
-  .qris-fallback{width:220px;height:220px;border:2px dashed #ccc;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:10px;color:#666}
-  ::-webkit-scrollbar{width:10px;height:10px}
-  ::-webkit-scrollbar-track{background:var(--ink)}
-  ::-webkit-scrollbar-thumb{background:var(--ink-3);border-radius:5px}
-  ::-webkit-scrollbar-thumb:hover{background:var(--cyan)}
-  @media (max-width:576px){.pay-card{padding:32px 24px}.reg-id-value{font-size:22px}}
+:root{
+  --ink:#050a14;--ink-2:#0a1628;--ink-3:#0f2240;
+  --cyan:#00e5ff;--orange:#ff6b1a;--red:#ff3855;
+  --green:#2cff9a;--blue:#3b82f6;--fg:#e6f1ff;
+  --muted:#8aa0bd;--border:rgba(0,229,255,.18);
+}
+*{box-sizing:border-box;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--fg);font-family:'Barlow Condensed',sans-serif;overflow-x:hidden;letter-spacing:.01em;min-height:100vh;display:flex;flex-direction:column}
+.font-display{font-family:'Russo One',sans-serif;letter-spacing:.02em}
+
+/* === BACKGROUND === */
+.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,229,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.04) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 20%,#000 20%,transparent 70%)}
+.bg-orb{position:fixed;border-radius:50%;filter:blur(130px);z-index:0;pointer-events:none}
+.orb-1{width:650px;height:650px;background:radial-gradient(circle,#0055cc,transparent 70%);top:-250px;left:-200px;opacity:.5;animation:f1 20s ease-in-out infinite}
+.orb-2{width:500px;height:500px;background:radial-gradient(circle,#ff6b1a,transparent 70%);bottom:-220px;right:-180px;opacity:.2;animation:f2 24s ease-in-out infinite}
+.orb-3{width:300px;height:300px;background:radial-gradient(circle,#00e5ff,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);opacity:.08;animation:f3 15s ease-in-out infinite}
+@keyframes f1{0%,100%{transform:translate(0,0)}50%{transform:translate(90px,50px)}}
+@keyframes f2{0%,100%{transform:translate(0,0)}50%{transform:translate(-70px,-40px)}}
+@keyframes f3{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.3)}}
+.noise{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='.85' numOctaves='3'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='.5'/></svg>")}
+
+main,header,footer{position:relative;z-index:2}
+
+/* === TOPBAR === */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(5,10,20,.85);backdrop-filter:blur(18px) saturate(1.4);border-bottom:1px solid var(--border)}
+
+/* === LOGO IMG === */
+.logo-img{height:40px;width:auto;object-fit:contain;display:block;border-radius:6px}
+
+/* === PILL === */
+.pill{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:999px;background:rgba(255,107,26,.07);border:1px solid rgba(255,107,26,.25);font-weight:600;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange)}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:var(--orange);box-shadow:0 0 12px var(--orange);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+
+/* === PAY CARD === */
+.pay-card{background:linear-gradient(175deg,rgba(15,34,64,.6) 0%,rgba(10,22,40,.9) 100%);border:1px solid var(--border);border-radius:28px;padding:48px 44px;max-width:580px;width:100%;text-align:center;box-shadow:0 30px 80px -20px rgba(0,229,255,.12),0 0 0 1px rgba(0,229,255,.06) inset;position:relative;overflow:hidden}
+.pay-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,229,255,.4),transparent)}
+
+/* === PAY ICON === */
+.pay-icon-wrap{width:100px;height:100px;margin:0 auto 28px;position:relative;display:grid;place-items:center}
+.pay-icon-wrap::before{content:'';position:absolute;inset:0;border-radius:50%;background:rgba(255,107,26,.12);animation:ripple 2.2s ease-out infinite}
+.pay-icon-wrap::after{content:'';position:absolute;inset:12px;border-radius:50%;background:rgba(255,107,26,.15);animation:ripple 2.2s ease-out infinite .6s}
+.pay-icon{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--orange),#cc4d00);display:grid;place-items:center;font-size:36px;color:#1a0a00;z-index:2;box-shadow:0 12px 35px -8px rgba(255,107,26,.45);animation:pop .6s cubic-bezier(.2,.8,.2,1)}
+@keyframes ripple{0%{transform:scale(1);opacity:1}100%{transform:scale(2);opacity:0}}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.12)}100%{transform:scale(1)}}
+
+/* === BUTTONS === */
+.cta-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 28px;border-radius:14px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:.15em;text-transform:uppercase;transition:all .35s cubic-bezier(.4,0,.2,1);cursor:pointer;border:none;text-decoration:none;width:100%;position:relative;overflow:hidden}
+.cta-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.12) 0%,transparent 60%);pointer-events:none}
+.cta-cyan{background:var(--cyan);color:#001824}
+.cta-cyan:hover{background:#fff;transform:translateY(-3px);box-shadow:0 14px 35px -8px rgba(0,229,255,.5)}
+.cta-orange{background:linear-gradient(135deg,var(--orange),#e05a10);color:#1a0a00}
+.cta-orange:hover:not(:disabled){background:linear-gradient(135deg,#ff8a3d,#ff6b1a);transform:translateY(-3px);box-shadow:0 14px 35px -8px rgba(255,107,26,.5)}
+.cta-orange:disabled{opacity:.3;cursor:not-allowed;transform:none!important;box-shadow:none!important;filter:saturate(.3) brightness(.7)}
+.cta-outline{background:transparent;color:var(--fg);border:1.5px solid var(--border)}
+.cta-outline:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.05);transform:translateY(-2px)}
+.cta-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.1) 0%,transparent 50%);pointer-events:none;border-radius:inherit}
+
+/* === REG ID === */
+.reg-id-box{background:rgba(0,229,255,.04);border:1px dashed rgba(0,229,255,.35);border-radius:16px;padding:20px 24px;margin:28px 0;position:relative}
+.reg-id-box::before{content:'';position:absolute;top:-1px;left:20%;right:20%;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent)}
+.reg-id-label{font-size:11px;text-transform:uppercase;letter-spacing:.22em;color:var(--muted);margin-bottom:8px}
+.reg-id-value{font-family:'Russo One',sans-serif;font-size:30px;color:var(--cyan);letter-spacing:.06em;text-shadow:0 0 20px rgba(0,229,255,.3)}
+
+/* === SUMMARY === */
+.summary-box{background:rgba(0,229,255,.025);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:left;position:relative}
+.summary-box::before{content:'';position:absolute;top:-1px;left:15%;right:15%;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.3}
+.summary-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid rgba(0,229,255,.08)}
+.summary-row:last-child{border-bottom:none;padding-bottom:0}
+.summary-row:first-child{padding-top:0}
+.summary-label{color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.06em}
+.summary-value{font-weight:700;font-size:15px}
+
+/* === PAYMENT SECTION === */
+.payment-section{margin-top:36px;padding-top:28px;border-top:1px solid var(--border);text-align:center;position:relative}
+.payment-section::before{content:'';position:absolute;top:-1px;left:30%;right:30%;height:1px;background:linear-gradient(90deg,transparent,var(--orange),transparent);opacity:.4}
+.payment-title{font-family:'Russo One',sans-serif;font-size:18px;margin-bottom:8px;color:var(--orange);text-transform:uppercase;letter-spacing:.06em}
+.payment-desc{font-size:14px;color:var(--muted);margin-bottom:22px;line-height:1.5}
+.qris-wrapper{background:#fff;padding:18px;border-radius:20px;width:max-content;margin:0 auto 20px;box-shadow:0 20px 50px -15px rgba(0,0,0,.6),0 0 0 1px rgba(0,0,0,.05);display:flex;flex-direction:column;align-items:center;position:relative;overflow:hidden}
+.qris-wrapper::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#f7931e,#ff6b1a,#f7931e)}
+.qris-img{width:230px;height:230px;object-fit:contain}
+.qris-logo{margin-top:14px;font-weight:800;color:#000;font-size:20px;letter-spacing:2px;display:flex;align-items:center;gap:6px}
+.qris-fallback{width:230px;height:230px;border:2px dashed #ccc;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:10px;color:#888}
+
+/* === UPLOAD ZONE === */
+.upload-zone{border:2px dashed rgba(0,229,255,.2);border-radius:18px;padding:32px 24px;cursor:pointer;transition:all .35s cubic-bezier(.4,0,.2,1);background:rgba(0,229,255,.015);position:relative;overflow:hidden}
+.upload-zone:hover{border-color:rgba(0,229,255,.45);background:rgba(0,229,255,.04)}
+.upload-zone.dragover{border-color:var(--cyan);background:rgba(0,229,255,.08);transform:scale(1.01)}
+.upload-zone.has-file{border-color:var(--green);background:rgba(44,255,154,.04);border-style:solid}
+.upload-zone.has-file:hover{border-color:var(--green);background:rgba(44,255,154,.06)}
+.upload-icon{width:56px;height:56px;border-radius:16px;background:rgba(0,229,255,.08);display:grid;place-items:center;margin:0 auto 16px;font-size:22px;color:var(--cyan);transition:all .35s}
+.upload-zone.has-file .upload-icon{background:rgba(44,255,154,.1);color:var(--green)}
+.upload-title{font-weight:700;font-size:15px;margin-bottom:6px;letter-spacing:.02em}
+.upload-sub{font-size:12px;color:var(--muted);line-height:1.5}
+.upload-sub span{color:var(--cyan);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+
+/* File Preview */
+.file-preview{display:none;margin-top:16px;padding:14px 18px;background:rgba(44,255,154,.06);border:1px solid rgba(44,255,154,.2);border-radius:12px;align-items:center;gap:14px;text-align:left}
+.file-preview.show{display:flex}
+.file-thumb{width:52px;height:52px;border-radius:10px;background:rgba(44,255,154,.1);display:grid;place-items:center;flex-shrink:0;font-size:20px;color:var(--green)}
+.file-info{flex:1;min-width:0}
+.file-name{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--green)}
+.file-size{font-size:11px;color:var(--muted);margin-top:2px}
+.file-remove{width:32px;height:32px;border-radius:8px;border:1px solid rgba(255,56,85,.2);background:rgba(255,56,85,.06);display:grid;place-items:center;cursor:pointer;transition:all .2s;flex-shrink:0;color:var(--red);font-size:13px}
+.file-remove:hover{background:rgba(255,56,85,.15);border-color:var(--red)}
+
+/* === CHECKBOX === */
+.checkbox-wrap{display:flex;align-items:flex-start;gap:14px;text-align:left;margin-top:28px;padding:18px 20px;border-radius:14px;background:rgba(255,107,26,.03);border:1px solid rgba(255,107,26,.1);cursor:pointer;transition:all .3s;user-select:none}
+.checkbox-wrap:hover{background:rgba(255,107,26,.06);border-color:rgba(255,107,26,.2)}
+.checkbox-wrap.checked{background:rgba(44,255,154,.04);border-color:rgba(44,255,154,.2)}
+.checkbox-box{width:24px;height:24px;border-radius:7px;border:2px solid rgba(0,229,255,.25);background:rgba(0,229,255,.04);display:grid;place-items:center;flex-shrink:0;transition:all .3s cubic-bezier(.4,0,.2,1);margin-top:1px}
+.checkbox-wrap.checked .checkbox-box{background:var(--green);border-color:var(--green);box-shadow:0 0 14px rgba(44,255,154,.3)}
+.checkbox-box i{font-size:12px;color:#001824;opacity:0;transform:scale(0);transition:all .25s cubic-bezier(.4,0,.2,1)}
+.checkbox-wrap.checked .checkbox-box i{opacity:1;transform:scale(1)}
+.checkbox-text{font-size:13px;color:var(--muted);line-height:1.55}
+.checkbox-text strong{color:var(--fg);font-weight:600}
+
+/* === LOADING OVERLAY === */
+.loading-overlay{position:fixed;inset:0;z-index:9999;background:rgba(3,6,12,.96);backdrop-filter:blur(30px);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s}
+.loading-overlay.active{opacity:1;pointer-events:all}
+.loading-ring-wrap{position:relative;width:180px;height:180px;margin-bottom:40px}
+.loading-ring-svg{width:100%;height:100%;transform:rotate(-90deg)}
+.loading-track{fill:none;stroke:rgba(0,229,255,.06);stroke-width:4}
+.loading-progress{fill:none;stroke:url(#loadGrad);stroke-width:4;stroke-linecap:round;stroke-dasharray:502;stroke-dashoffset:502;transition:stroke-dashoffset .5s linear}
+.loading-icon-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:42px;color:var(--cyan);animation:loadPulse 2s ease-in-out infinite}
+@keyframes loadPulse{0%,100%{opacity:.6;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}}
+.loading-particles{position:absolute;inset:-40px}
+.l-particle{position:absolute;width:4px;height:4px;border-radius:50%;background:var(--cyan);opacity:0}
+.l-particle:nth-child(1){top:0;left:50%;animation:lFloat 3s ease-in-out infinite 0s}
+.l-particle:nth-child(2){top:20%;right:0;animation:lFloat 3s ease-in-out infinite .5s}
+.l-particle:nth-child(3){bottom:20%;right:0;animation:lFloat 3s ease-in-out infinite 1s}
+.l-particle:nth-child(4){bottom:0;left:50%;animation:lFloat 3s ease-in-out infinite 1.5s}
+.l-particle:nth-child(5){bottom:20%;left:0;animation:lFloat 3s ease-in-out infinite 2s}
+.l-particle:nth-child(6){top:20%;left:0;animation:lFloat 3s ease-in-out infinite 2.5s}
+@keyframes lFloat{0%{opacity:0;transform:scale(0) translateY(0)}30%{opacity:1;transform:scale(1) translateY(0)}70%{opacity:.6;transform:scale(.8) translateY(-20px)}100%{opacity:0;transform:scale(0) translateY(-40px)}}
+.loading-title{font-family:'Russo One',sans-serif;font-size:22px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg);margin-bottom:8px}
+.loading-subtitle{font-size:14px;color:var(--muted);margin-bottom:32px;letter-spacing:.03em}
+.loading-timer{font-family:'Russo One',sans-serif;font-size:52px;color:var(--cyan);text-shadow:0 0 40px rgba(0,229,255,.35);margin-bottom:10px;letter-spacing:.05em}
+.loading-timer-label{font-size:11px;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);margin-bottom:36px}
+.loading-bar-outer{width:320px;max-width:80vw;height:4px;border-radius:4px;background:rgba(0,229,255,.08);overflow:hidden;margin-bottom:24px}
+.loading-bar-inner{height:100%;width:0%;border-radius:4px;background:linear-gradient(90deg,var(--cyan),var(--green));transition:width .5s linear;box-shadow:0 0 12px rgba(0,229,255,.4)}
+.loading-steps{display:flex;gap:32px;margin-bottom:0}
+.loading-step{display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.25;transition:all .5s}
+.loading-step.active{opacity:1}
+.loading-step.done{opacity:.7}
+.loading-step-icon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:16px;border:1px solid var(--border);background:rgba(0,229,255,.03);transition:all .5s}
+.loading-step.active .loading-step-icon{border-color:var(--cyan);background:rgba(0,229,255,.1);color:var(--cyan);box-shadow:0 0 20px rgba(0,229,255,.15)}
+.loading-step.done .loading-step-icon{border-color:var(--green);background:rgba(44,255,154,.1);color:var(--green)}
+.loading-step-label{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.loading-step.active .loading-step-label{color:var(--cyan)}
+.loading-step.done .loading-step-label{color:var(--green)}
+.loading-step .spinner-icon{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* === SCROLLBAR === */
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:var(--ink)}
+::-webkit-scrollbar-thumb{background:var(--ink-3);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--cyan)}
+
+/* === RESPONSIVE === */
+@media(max-width:576px){
+  .pay-card{padding:32px 22px;border-radius:22px}
+  .reg-id-value{font-size:24px}
+  .loading-timer{font-size:40px}
+  .loading-steps{gap:18px}
+  .loading-step-label{font-size:9px}
+  .loading-bar-outer{width:260px}
+  .logo-img{height:34px}
+}
+
+/* === TOAST === */
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);z-index:10000;padding:14px 28px;border-radius:14px;font-size:14px;font-weight:600;letter-spacing:.04em;display:flex;align-items:center;gap:10px;opacity:0;transition:all .4s cubic-bezier(.4,0,.2,1);pointer-events:none;backdrop-filter:blur(12px)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+.toast-error{background:rgba(255,56,85,.15);border:1px solid rgba(255,56,85,.3);color:var(--red)}
+.toast-success{background:rgba(44,255,154,.12);border:1px solid rgba(44,255,154,.25);color:var(--green)}
+.toast-info{background:rgba(0,229,255,.12);border:1px solid rgba(0,229,255,.25);color:var(--cyan)}
+
+/* === HINT BADGE === */
+.hint-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-top:12px;transition:all .3s}
+.hint-badge.pending{background:rgba(255,56,85,.06);border:1px solid rgba(255,56,85,.15);color:rgba(255,56,85,.7)}
+.hint-badge.ready{background:rgba(44,255,154,.06);border:1px solid rgba(44,255,154,.15);color:rgba(44,255,154,.8)}
 </style>
 </head>
 <body>
@@ -73,12 +200,62 @@
 <div class="bg-grid"></div>
 <div class="bg-orb orb-1"></div>
 <div class="bg-orb orb-2"></div>
+<div class="bg-orb orb-3"></div>
 <div class="noise"></div>
 
+
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-ring-wrap">
+    <div class="loading-particles">
+      <div class="l-particle"></div>
+      <div class="l-particle"></div>
+      <div class="l-particle"></div>
+      <div class="l-particle"></div>
+      <div class="l-particle"></div>
+      <div class="l-particle"></div>
+    </div>
+    <svg class="loading-ring-svg" viewBox="0 0 180 180">
+      <defs>
+        <linearGradient id="loadGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#00e5ff"/>
+          <stop offset="100%" stop-color="#2cff9a"/>
+        </linearGradient>
+      </defs>
+      <circle class="loading-track" cx="90" cy="90" r="80"/>
+      <circle class="loading-progress" id="loadingCircle" cx="90" cy="90" r="80"/>
+    </svg>
+    <div class="loading-icon-center"><i class="fa-solid fa-shield-halved"></i></div>
+  </div>
+  <div class="loading-title">Memverifikasi Pembayaran</div>
+  <div class="loading-subtitle">Mohon tunggu, jangan tutup halaman ini</div>
+  <div class="loading-timer" id="loadingTimer">03:00</div>
+  <div class="loading-timer-label">Sisa Waktu</div>
+  <div class="loading-bar-outer"><div class="loading-bar-inner" id="loadingBar"></div></div>
+  <div class="loading-steps">
+    <div class="loading-step" id="step1">
+      <div class="loading-step-icon"><i class="fa-solid fa-upload spinner-icon" id="step1Icon"></i></div>
+      <div class="loading-step-label">Upload</div>
+    </div>
+    <div class="loading-step" id="step2">
+      <div class="loading-step-icon"><i class="fa-solid fa-magnifying-glass" id="step2Icon"></i></div>
+      <div class="loading-step-label">Verifikasi</div>
+    </div>
+    <div class="loading-step" id="step3">
+      <div class="loading-step-icon"><i class="fa-solid fa-check" id="step3Icon"></i></div>
+      <div class="loading-step-label">Selesai</div>
+    </div>
+  </div>
+</div>
+
+
+<div class="toast toast-error" id="toastError"><i class="fa-solid fa-circle-exclamation"></i><span id="toastErrorMsg"></span></div>
+
+
 <header class="topbar">
-  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-    <a href="index.html" class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-lg grid place-items-center" style="background:linear-gradient(135deg,#00e5ff,#0066ff)">
+  <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3 no-underline">
+      <img src="logo.png" alt="Logo BDC4" class="logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='grid';">
+      <div class="w-10 h-10 rounded-xl grid place-items-center" style="background:linear-gradient(135deg,#00e5ff,#0066ff);box-shadow:0 4px 15px -3px rgba(0,229,255,.4);display:none">
         <i class="fa-solid fa-bicycle text-[#001824] text-lg"></i>
       </div>
       <div>
@@ -86,98 +263,355 @@
         <div class="text-[10px] tracking-[.25em] text-[var(--muted)] uppercase">Pembayaran</div>
       </div>
     </a>
-    <a href="index.html" class="cta-btn cta-outline !w-auto !px-5 !py-2.5 !text-xs">
+    <a href="index.html" class="cta-btn cta-outline !w-auto !px-5 !py-2.5 !text-xs !rounded-lg">
       <i class="fa-solid fa-house"></i> Beranda
     </a>
   </div>
 </header>
 
-<main class="flex-1 flex items-center justify-center py-16 px-6">
-  <div class="pay-card">
-    
-    <div class="pill mb-6"><span class="dot"></span> Langkah 2: Pembayaran</div>
 
+<main class="flex-1 flex items-center justify-center py-14 px-5">
+  <div class="pay-card">
+
+    
+    <div class="pill mb-6"><span class="dot"></span> Langkah 2 dari 3: Pembayaran</div>
+
+    
     <div class="pay-icon-wrap">
       <div class="pay-icon"><i class="fa-solid fa-qrcode"></i></div>
     </div>
-    
-    <h1 class="font-display text-3xl md:text-4xl uppercase mb-2">Scan <span style="color:var(--orange)">QRIS</span></h1>
-    <p class="text-[var(--muted)] mb-6 text-lg">Selesaikan pembayaran untuk mengaktifkan pendaftaran Anda.</p>
 
+    <h1 class="font-display text-3xl md:text-4xl uppercase mb-2 leading-tight">Scan <span style="color:var(--orange)">QRIS</span></h1>
+    <p class="text-[var(--muted)] mb-0 text-base leading-relaxed">Selesaikan pembayaran, lalu unggah bukti transfer Anda.</p>
+
+    
     <div class="reg-id-box">
       <div class="reg-id-label"><i class="fa-solid fa-hashtag mr-1"></i> Nomor Registrasi</div>
       <div class="reg-id-value" id="regId">BDC4-XXXXXX</div>
     </div>
 
-    <div class="text-left rounded-xl p-5" style="background:rgba(0,229,255,.03);border:1px solid var(--border)">
-      <div class="text-xs uppercase tracking-widest text-[var(--cyan)] mb-3"><i class="fa-solid fa-receipt mr-1"></i> Ringkasan Pendaftaran</div>
+    
+    <div class="summary-box">
+      <div class="text-[11px] uppercase tracking-widest text-[var(--cyan)] mb-3 font-semibold"><i class="fa-solid fa-receipt mr-1"></i> Ringkasan Pendaftaran</div>
       <div class="summary-row"><span class="summary-label">Nama Peserta</span><span class="summary-value" id="sumName">—</span></div>
       <div class="summary-row"><span class="summary-label">Paket Dipilih</span><span class="summary-value" id="sumPkg">—</span></div>
-      <div class="summary-row"><span class="summary-label">Biaya</span><span class="summary-value" id="sumPrice">—</span></div>
+      <div class="summary-row"><span class="summary-label">Biaya</span><span class="summary-value" style="color:var(--orange);font-size:17px" id="sumPrice">—</span></div>
     </div>
 
+    
     <div class="payment-section">
       <h3 class="payment-title"><i class="fa-solid fa-qrcode mr-2"></i>Scan Untuk Membayar</h3>
-      <p class="payment-desc">Gunakan aplikasi e-wallet atau m-banking apa pun yang mendukung QRIS.</p>
-      
+      <p class="payment-desc">Gunakan aplikasi e-wallet atau m-banking yang mendukung QRIS.</p>
+
       <div class="qris-wrapper">
-        <img src="qris.png" alt="QRIS Pembayaran BDC4" class="qris-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="qris-fallback" style="display:none;">
-           <i class="fa-solid fa-image text-4xl mb-2"></i>
-           <span class="text-sm font-semibold">qris.png</span>
-           <span class="text-xs">Gambar tidak ditemukan</span>
+        <img src="qris.png" alt="QRIS Pembayaran BDC4" class="qris-img" id="qrisImg" onerror="this.style.display='none';document.getElementById('qrisFallback').style.display='flex';">
+        <div class="qris-fallback" id="qrisFallback" style="display:none;">
+          <i class="fa-solid fa-image text-4xl mb-3" style="color:#bbb"></i>
+          <span class="text-sm font-semibold" style="color:#555">qris.png</span>
+          <span class="text-xs" style="color:#999">Gambar QRIS tidak ditemukan</span>
         </div>
         <div class="qris-logo">
-           <span style="background:#000; color:#fff; padding:2px 8px; border-radius:4px; font-size:14px">QR</span> 
-           <span style="color:#f7931e">IS</span>
+          <span style="background:#000;color:#fff;padding:2px 8px;border-radius:4px;font-size:14px">QR</span>
+          <span style="color:#f7931e">IS</span>
         </div>
       </div>
     </div>
 
-    <div class="grid grid-cols-1 gap-3 mt-8">
-      <a href="pending.html" onclick="transferData()" class="cta-btn cta-orange">
-        <i class="fa-solid fa-circle-check"></i> Saya Sudah Bayar
-      </a>
+    
+    <div class="mt-10 text-left">
+      <div class="text-[11px] uppercase tracking-widest text-[var(--cyan)] mb-3 font-semibold"><i class="fa-solid fa-cloud-arrow-up mr-1"></i> Upload Bukti Pembayaran</div>
+
+      <div class="upload-zone" id="uploadZone" tabindex="0" role="button" aria-label="Klik atau seret file bukti pembayaran">
+        <input type="file" id="fileInput" accept="image/*,.pdf" hidden>
+        <div class="upload-icon" id="uploadIcon"><i class="fa-solid fa-cloud-arrow-up" id="uploadIconI"></i></div>
+        <div class="upload-title" id="uploadTitle">Seret file ke sini atau <span style="color:var(--cyan)">klik untuk memilih</span></div>
+        <div class="upload-sub">Format: JPG, PNG, JPEG, PDF &mdash; Maks. <span>10 MB</span></div>
+
+        
+        <div class="file-preview" id="filePreview">
+          <div class="file-thumb"><i class="fa-solid fa-file-image" id="fileThumbIcon"></i></div>
+          <div class="file-info">
+            <div class="file-name" id="fileName">—</div>
+            <div class="file-size" id="fileSize">—</div>
+          </div>
+          <div class="file-remove" id="fileRemove" title="Hapus file"><i class="fa-solid fa-xmark"></i></div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="checkbox-wrap" id="checkboxWrap" tabindex="0" role="checkbox" aria-checked="false" aria-label="Saya menyatakan telah melakukan pembayaran">
+      <div class="checkbox-box"><i class="fa-solid fa-check"></i></div>
+      <div class="checkbox-text">
+        Saya menyatakan <strong>sudah melakukan pembayaran</strong> sesuai nominal yang tertera melalui QRIS di atas, dan bukti yang saya unggah adalah <strong>benar dan sah</strong>.
+      </div>
+    </div>
+
+    
+    <div class="flex justify-center" id="hintArea">
+      <div class="hint-badge pending" id="hintBadge">
+        <i class="fa-solid fa-circle-info"></i>
+        <span id="hintText">Upload bukti & centang pernyataan untuk melanjutkan</span>
+      </div>
+    </div>
+
+    
+    <div class="grid grid-cols-1 gap-3 mt-6">
+      <button type="button" class="cta-btn cta-orange" id="confirmBtn" disabled aria-label="Konfirmasi Pembayaran">
+        <i class="fa-solid fa-circle-check"></i> Konfirmasi Pembayaran
+      </button>
       <a href="index.html" class="cta-btn cta-outline">
-        <i class="fa-solid fa-xmark"></i> Batalkan
+        <i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda
       </a>
     </div>
 
   </div>
 </main>
 
+
 <footer class="border-t border-[var(--border)] py-6">
-  <div class="max-w-7xl mx-auto px-6 text-center text-sm text-[var(--muted)]">
-    © 2026 Banua Duathlon Challenge 4 · Banjarbaru, Kalimantan Selatan
+  <div class="max-w-7xl mx-auto px-5 text-center text-sm text-[var(--muted)]">
+    &copy; 2026 Banua Duathlon Challenge 4 &middot; Banjarbaru, Kalimantan Selatan
   </div>
 </footer>
 
 <script>
-  // Ambil data dari URL sebelumnya (form.html)
+(function(){
+  /* ====== DATA DARI URL ====== */
   const params = new URLSearchParams(window.location.search);
-  const regId = params.get('regId') || 'BDC4-UNKNOWN';
-  const name = params.get('name') || 'Peserta';
-  const pkg = params.get('pkg') || 'Tidak diketahui';
-  const price = params.get('price') || 'Rp0';
+  const regId  = params.get('regId')  || 'BDC4-UNKNOWN';
+  const name   = params.get('name')   || 'Peserta';
+  const pkg    = params.get('pkg')    || 'Tidak diketahui';
+  const price  = params.get('price')  || 'Rp0';
 
-  // Tampilkan di layar
-  document.getElementById('regId').textContent = regId;
-  document.getElementById('sumName').textContent = name;
-  document.getElementById('sumPkg').textContent = pkg;
+  document.getElementById('regId').textContent   = regId;
+  document.getElementById('sumName').textContent  = name;
+  document.getElementById('sumPkg').textContent   = pkg;
   document.getElementById('sumPrice').textContent = price;
 
-  // Fungsi untuk meneruskan data ke pending.html
-  function transferData() {
-    const query = new URLSearchParams({ regId: regId, name: name, pkg: pkg, price: price });
-    window.location.href = 'pending.html?' + query.toString();
+  /* ====== ELEMEN ====== */
+  const uploadZone   = document.getElementById('uploadZone');
+  const fileInput    = document.getElementById('fileInput');
+  const filePreview  = document.getElementById('filePreview');
+  const fileName     = document.getElementById('fileName');
+  const fileSize     = document.getElementById('fileSize');
+  const fileRemove   = document.getElementById('fileRemove');
+  const fileThumbIcon= document.getElementById('fileThumbIcon');
+  const uploadIconI  = document.getElementById('uploadIconI');
+  const uploadTitle  = document.getElementById('uploadTitle');
+  const checkboxWrap = document.getElementById('checkboxWrap');
+  const confirmBtn   = document.getElementById('confirmBtn');
+  const hintBadge    = document.getElementById('hintBadge');
+  const hintText     = document.getElementById('hintText');
+
+  let selectedFile = null;
+  let isChecked    = false;
+
+  /* ====== VALIDASI TOMBOL ====== */
+  function validateForm(){
+    const ready = selectedFile !== null && isChecked;
+    confirmBtn.disabled = !ready;
+    if(ready){
+      hintBadge.className = 'hint-badge ready';
+      hintText.innerHTML  = '<i class="fa-solid fa-circle-check" style="margin-right:4px"></i> Siap dikonfirmasi';
+    } else {
+      hintBadge.className = 'hint-badge pending';
+      const missing = [];
+      if(!selectedFile) missing.push('upload bukti');
+      if(!isChecked) missing.push('centang pernyataan');
+      hintText.textContent = missing.join(' & ') + ' untuk melanjutkan';
+    }
   }
 
-  document.addEventListener('mousemove', function(e) {
-    const x = (e.clientX / window.innerWidth - .5), y = (e.clientY / window.innerHeight - .5);
-    const o1 = document.querySelector('.orb-1'), o2 = document.querySelector('.orb-2');
-    if (o1) o1.style.transform = 'translate(' + (x*30) + 'px,' + (y*30) + 'px)';
-    if (o2) o2.style.transform = 'translate(' + (-x*40) + 'px,' + (-y*40) + 'px)';
+  /* ====== UPLOAD ZONE EVENTS ====== */
+  uploadZone.addEventListener('click', function(e){
+    if(e.target.closest('.file-remove')) return;
+    fileInput.click();
   });
+  uploadZone.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); fileInput.click(); }
+  });
+
+  /* Drag & Drop */
+  ['dragenter','dragover'].forEach(function(ev){
+    uploadZone.addEventListener(ev, function(e){ e.preventDefault(); e.stopPropagation(); uploadZone.classList.add('dragover'); });
+  });
+  ['dragleave','drop'].forEach(function(ev){
+    uploadZone.addEventListener(ev, function(e){ e.preventDefault(); e.stopPropagation(); uploadZone.classList.remove('dragover'); });
+  });
+  uploadZone.addEventListener('drop', function(e){
+    var files = e.dataTransfer.files;
+    if(files.length > 0) handleFile(files[0]);
+  });
+
+  fileInput.addEventListener('change', function(){
+    if(this.files.length > 0) handleFile(this.files[0]);
+  });
+
+  /* ====== HANDLE FILE ====== */
+  function handleFile(file){
+    var allowed = ['image/jpeg','image/png','image/jpg','application/pdf'];
+    if(!allowed.includes(file.type)){
+      showToast('Format file tidak didukung. Gunakan JPG, PNG, atau PDF.', 'error');
+      return;
+    }
+    if(file.size > 10 * 1024 * 1024){
+      showToast('Ukuran file melebihi 10 MB.', 'error');
+      return;
+    }
+
+    selectedFile = file;
+    fileName.textContent = file.name;
+    fileSize.textContent = formatSize(file.size);
+    filePreview.classList.add('show');
+    uploadZone.classList.add('has-file');
+
+    if(file.type === 'application/pdf'){
+      fileThumbIcon.className = 'fa-solid fa-file-pdf';
+    } else {
+      fileThumbIcon.className = 'fa-solid fa-file-image';
+    }
+
+    uploadIconI.className = 'fa-solid fa-circle-check';
+    uploadTitle.innerHTML = 'File berhasil dipilih &mdash; <span style="color:var(--green)">klik untuk ganti</span>';
+
+    validateForm();
+  }
+
+  /* Hapus file */
+  fileRemove.addEventListener('click', function(e){
+    e.stopPropagation();
+    selectedFile = null;
+    fileInput.value = '';
+    filePreview.classList.remove('show');
+    uploadZone.classList.remove('has-file');
+    uploadIconI.className = 'fa-solid fa-cloud-arrow-up';
+    uploadTitle.innerHTML = 'Seret file ke sini atau <span style="color:var(--cyan)">klik untuk memilih</span>';
+    validateForm();
+  });
+
+  function formatSize(bytes){
+    if(bytes < 1024) return bytes + ' B';
+    if(bytes < 1024*1024) return (bytes/1024).toFixed(1) + ' KB';
+    return (bytes/(1024*1024)).toFixed(2) + ' MB';
+  }
+
+  /* ====== CHECKBOX ====== */
+  function toggleCheckbox(){
+    isChecked = !isChecked;
+    checkboxWrap.classList.toggle('checked', isChecked);
+    checkboxWrap.setAttribute('aria-checked', isChecked);
+    validateForm();
+  }
+  checkboxWrap.addEventListener('click', toggleCheckbox);
+  checkboxWrap.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggleCheckbox(); }
+  });
+
+  /* ====== TOAST ====== */
+  var toastTimer = null;
+  function showToast(msg, type){
+    var t = document.getElementById('toastError');
+    var m = document.getElementById('toastErrorMsg');
+    t.className = 'toast toast-' + type;
+    m.textContent = msg;
+    t.querySelector('i').className = type === 'error' ? 'fa-solid fa-circle-exclamation' : type === 'success' ? 'fa-solid fa-circle-check' : 'fa-solid fa-circle-info';
+    void t.offsetWidth;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 3500);
+  }
+
+  /* ====== KONFIRMASI PEMBAYARAN ====== */
+  confirmBtn.addEventListener('click', function(){
+    if(this.disabled) return;
+    startLoading();
+  });
+
+  /* ====== LOADING ANIMATION (3 MENIT) ====== */
+  function startLoading(){
+    var overlay = document.getElementById('loadingOverlay');
+    var circle  = document.getElementById('loadingCircle');
+    var bar     = document.getElementById('loadingBar');
+    var timerEl = document.getElementById('loadingTimer');
+    var step1   = document.getElementById('step1');
+    var step2   = document.getElementById('step2');
+    var step3   = document.getElementById('step3');
+    var s1Icon  = document.getElementById('step1Icon');
+    var s2Icon  = document.getElementById('step2Icon');
+    var s3Icon  = document.getElementById('step3Icon');
+
+    var TOTAL_SECONDS = 180;
+    var circumference = 2 * Math.PI * 80;
+    var remaining = TOTAL_SECONDS;
+
+    /* Reset state */
+    circle.style.strokeDashoffset = circumference;
+    bar.style.width = '0%';
+    timerEl.textContent = formatTime(remaining);
+    step1.className = 'loading-step active';
+    step2.className = 'loading-step';
+    step3.className = 'loading-step';
+    s1Icon.className = 'fa-solid fa-upload spinner-icon';
+    s2Icon.className = 'fa-solid fa-magnifying-glass';
+    s3Icon.className = 'fa-solid fa-check';
+
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    var interval = setInterval(function(){
+      remaining--;
+      if(remaining < 0) remaining = 0;
+
+      timerEl.textContent = formatTime(remaining);
+
+      var progress = (TOTAL_SECONDS - remaining) / TOTAL_SECONDS;
+      var offset = circumference * (1 - progress);
+      circle.style.strokeDashoffset = offset;
+      bar.style.width = (progress * 100).toFixed(2) + '%';
+
+      if(remaining <= 0){
+        clearInterval(interval);
+        step3.className = 'loading-step done';
+        s3Icon.className = 'fa-solid fa-check';
+        setTimeout(function(){
+          var query = new URLSearchParams({ regId: regId, name: name, pkg: pkg, price: price });
+          window.location.href = 'pending.html?' + query.toString();
+        }, 800);
+      } else if(remaining <= 40){
+        step2.className = 'loading-step done';
+        s2Icon.className = 'fa-solid fa-check';
+        step3.className = 'loading-step active';
+        s3Icon.className = 'fa-solid fa-check spinner-icon';
+      } else if(remaining <= 130){
+        step1.className = 'loading-step done';
+        s1Icon.className = 'fa-solid fa-check';
+        step2.className = 'loading-step active';
+        s2Icon.className = 'fa-solid fa-magnifying-glass spinner-icon';
+      }
+    }, 1000);
+  }
+
+  function formatTime(s){
+    var m = Math.floor(s / 60);
+    var sec = s % 60;
+    return (m < 10 ? '0' : '') + m + ':' + (sec < 10 ? '0' : '') + sec;
+  }
+
+  /* ====== PARALLAX ORBS ====== */
+  document.addEventListener('mousemove', function(e){
+    var x = (e.clientX / window.innerWidth - 0.5);
+    var y = (e.clientY / window.innerHeight - 0.5);
+    var o1 = document.querySelector('.orb-1');
+    var o2 = document.querySelector('.orb-2');
+    var o3 = document.querySelector('.orb-3');
+    if(o1) o1.style.transform = 'translate(' + (x*25) + 'px,' + (y*25) + 'px)';
+    if(o2) o2.style.transform = 'translate(' + (-x*35) + 'px,' + (-y*35) + 'px)';
+    if(o3) o3.style.transform = 'translate(calc(-50% + ' + (x*15) + 'px), calc(-50% + ' + (y*15) + 'px))';
+  });
+
+  validateForm();
+})();
 </script>
 </body>
 </html>
