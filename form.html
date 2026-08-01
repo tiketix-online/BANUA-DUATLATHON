@@ -11,318 +11,88 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
   :root{
-    --ink:#050a14;
-    --ink-2:#0a1628;
-    --ink-3:#0f2240;
-    --cyan:#00e5ff;
-    --orange:#ff6b1a;
-    --red:#ff3855;
-    --green:#2cff9a;
-    --blue:#3b82f6;
-    --fg:#e6f1ff;
-    --muted:#8aa0bd;
-    --border:rgba(0,229,255,0.18);
+    --ink:#050a14; --ink-2:#0a1628; --ink-3:#0f2240;
+    --cyan:#00e5ff; --orange:#ff6b1a; --red:#ff3855;
+    --green:#2cff9a; --blue:#3b82f6; --fg:#e6f1ff;
+    --muted:#8aa0bd; --border:rgba(0,229,255,0.18);
   }
   *{box-sizing:border-box;-webkit-font-smoothing:antialiased}
   html{scroll-behavior:smooth}
-  body{
-    margin:0;
-    background:var(--ink);
-    color:var(--fg);
-    font-family:'Barlow Condensed',sans-serif;
-    overflow-x:hidden;
-    letter-spacing:.01em;
-  }
+  body{margin:0;background:var(--ink);color:var(--fg);font-family:'Barlow Condensed',sans-serif;overflow-x:hidden;letter-spacing:.01em}
   .font-display{font-family:'Russo One',sans-serif;letter-spacing:.02em}
-
-  .bg-grid{
-    position:fixed;inset:0;z-index:0;pointer-events:none;
-    background-image:
-      linear-gradient(rgba(0,229,255,.05) 1px,transparent 1px),
-      linear-gradient(90deg,rgba(0,229,255,.05) 1px,transparent 1px);
-    background-size:64px 64px;
-    mask-image:radial-gradient(ellipse at 50% 30%, #000 30%, transparent 75%);
-  }
-  .bg-orb{
-    position:fixed;border-radius:50%;filter:blur(120px);opacity:.5;z-index:0;pointer-events:none;
-  }
+  .bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,229,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.05) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 30%, #000 30%, transparent 75%)}
+  .bg-orb{position:fixed;border-radius:50%;filter:blur(120px);opacity:.5;z-index:0;pointer-events:none}
   .orb-1{width:600px;height:600px;background:#0066ff;top:-200px;left:-150px;animation:float1 18s ease-in-out infinite}
   .orb-2{width:500px;height:500px;background:#ff6b1a;bottom:-200px;right:-150px;opacity:.25;animation:float2 22s ease-in-out infinite}
   @keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(80px,40px)}}
   @keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-60px,-30px)}}
-  .noise{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.04;mix-blend-mode:overlay;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='.9' numOctaves='2'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='.6'/></svg>")}
-
+  .noise{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.04;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='.9' numOctaves='2'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='.6'/></svg>")}
   main,header,footer{position:relative;z-index:2}
-
-  .topbar{
-    position:sticky;top:0;z-index:50;
-    background:rgba(5,10,20,.82);
-    backdrop-filter:blur(14px);
-    border-bottom:1px solid var(--border);
-  }
-  .nav-link{transition:color .3s}
-  .nav-link:hover{color:var(--cyan)}
-
-  .pill{
-    display:inline-flex;align-items:center;gap:8px;
-    padding:8px 16px;border-radius:999px;
-    background:rgba(0,229,255,.08);
-    border:1px solid var(--border);
-    font-weight:600;font-size:14px;letter-spacing:.18em;
-    text-transform:uppercase;
-    color:var(--cyan);
-  }
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(5,10,20,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;background:rgba(0,229,255,.08);border:1px solid var(--border);font-weight:600;font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan)}
   .pill .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);animation:pulse 1.6s infinite}
   @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
-
-  .cta-btn{
-    display:inline-flex;align-items:center;justify-content:center;gap:10px;
-    padding:14px 24px;border-radius:12px;
-    font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;
-    letter-spacing:.15em;text-transform:uppercase;
-    transition:all .3s;cursor:pointer;border:none;
-    text-decoration:none;
-  }
+  .cta-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 24px;border-radius:12px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:.15em;text-transform:uppercase;transition:all .3s;cursor:pointer;border:none;text-decoration:none}
   .cta-cyan{background:var(--cyan);color:#001824}
   .cta-cyan:hover{background:#fff;transform:translateY(-2px);box-shadow:0 10px 30px -5px rgba(0,229,255,.5)}
   .cta-outline{background:transparent;color:var(--fg);border:1.5px solid var(--border)}
   .cta-outline:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.05)}
   .cta-orange{background:var(--orange);color:#1a0a00}
   .cta-orange:hover{background:#ff8a3d;transform:translateY(-2px);box-shadow:0 10px 30px -5px rgba(255,107,26,.5)}
-
-  .form-card{
-    background:linear-gradient(180deg, rgba(15,34,64,.6), rgba(10,22,40,.7));
-    border:1px solid var(--border);
-    border-radius:24px;
-    padding:36px;
-  }
-  .form-label{
-    display:block;font-size:13px;font-weight:600;
-    text-transform:uppercase;letter-spacing:.1em;
-    color:var(--muted);margin-bottom:8px;
-  }
+  .form-card{background:linear-gradient(180deg, rgba(15,34,64,.6), rgba(10,22,40,.7));border:1px solid var(--border);border-radius:24px;padding:36px}
+  .form-label{display:block;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px}
   .form-label .req{color:var(--orange);margin-left:2px}
-  .form-input{
-    width:100%;padding:12px 16px;
-    background:rgba(5,10,20,.6);
-    border:1.5px solid var(--border);
-    border-radius:12px;
-    color:var(--fg);
-    font-family:'Barlow Condensed',sans-serif;
-    font-size:16px;
-    transition:all .3s;
-    outline:none;
-  }
-  .form-input:focus{
-    border-color:var(--cyan);
-    background:rgba(0,229,255,.04);
-    box-shadow:0 0 0 3px rgba(0,229,255,.1);
-  }
+  .form-input{width:100%;padding:12px 16px;background:rgba(5,10,20,.6);border:1.5px solid var(--border);border-radius:12px;color:var(--fg);font-family:'Barlow Condensed',sans-serif;font-size:16px;transition:all .3s;outline:none}
+  .form-input:focus{border-color:var(--cyan);background:rgba(0,229,255,.04);box-shadow:0 0 0 3px rgba(0,229,255,.1)}
   .form-input::placeholder{color:rgba(138,160,189,.5)}
   textarea.form-input{resize:vertical;min-height:80px}
-  select.form-input{
-    appearance:none;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2300e5ff' viewBox='0 0 16 16'><path d='M8 11L3 6h10z'/></svg>");
-    background-repeat:no-repeat;
-    background-position:right 16px center;
-    padding-right:40px;
-  }
-  .form-error{
-    color:var(--red);font-size:12px;margin-top:4px;
-    display:none;
-  }
+  select.form-input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2300e5ff' viewBox='0 0 16 16'><path d='M8 11L3 6h10z'/></svg>");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px}
+  .form-error{color:var(--red);font-size:12px;margin-top:4px;display:none}
   .form-error.show{display:block}
   .form-input.invalid{border-color:var(--red)}
-
-  .pkg-option{
-    position:relative;cursor:pointer;
-    background:rgba(5,10,20,.4);
-    border:1.5px solid var(--border);
-    border-radius:16px;
-    padding:18px 20px;
-    transition:all .3s;
-    display:flex;align-items:center;gap:16px;
-  }
+  .pkg-option{position:relative;cursor:pointer;background:rgba(5,10,20,.4);border:1.5px solid var(--border);border-radius:16px;padding:18px 20px;transition:all .3s;display:flex;align-items:center;gap:16px}
   .pkg-option:hover{border-color:rgba(0,229,255,.4)}
-  .pkg-option.selected{
-    border-color:var(--cyan);
-    background:rgba(0,229,255,.06);
-    box-shadow:0 0 0 3px rgba(0,229,255,.1);
-  }
-  .pkg-option.selected.group-sel{
-    border-color:var(--orange);
-    background:rgba(255,107,26,.06);
-    box-shadow:0 0 0 3px rgba(255,107,26,.1);
-  }
-  .pkg-option.disabled{
-    opacity:.5;filter:grayscale(.8);cursor:not-allowed;pointer-events:none;
-    background:rgba(5,10,20,.2);
-  }
-  .pkg-radio{
-    width:22px;height:22px;border-radius:50%;
-    border:2px solid var(--muted);
-    flex-shrink:0;transition:all .3s;
-    display:grid;place-items:center;
-  }
-  .pkg-option.selected .pkg-radio{
-    border-color:var(--cyan);
-  }
-  .pkg-option.selected .pkg-radio::after{
-    content:'';width:10px;height:10px;border-radius:50%;background:var(--cyan);
-  }
+  .pkg-option.selected{border-color:var(--cyan);background:rgba(0,229,255,.06);box-shadow:0 0 0 3px rgba(0,229,255,.1)}
+  .pkg-option.selected.group-sel{border-color:var(--orange);background:rgba(255,107,26,.06);box-shadow:0 0 0 3px rgba(255,107,26,.1)}
+  .pkg-option.disabled{opacity:.5;filter:grayscale(.8);cursor:not-allowed;pointer-events:none;background:rgba(5,10,20,.2)}
+  .pkg-radio{width:22px;height:22px;border-radius:50%;border:2px solid var(--muted);flex-shrink:0;transition:all .3s;display:grid;place-items:center}
+  .pkg-option.selected .pkg-radio{border-color:var(--cyan)}
+  .pkg-option.selected .pkg-radio::after{content:'';width:10px;height:10px;border-radius:50%;background:var(--cyan)}
   .pkg-option.selected.group-sel .pkg-radio{border-color:var(--orange)}
   .pkg-option.selected.group-sel .pkg-radio::after{background:var(--orange)}
-
-  .pkg-dot{
-    width:10px;height:10px;border-radius:50%;flex-shrink:0;
-  }
-  .pkg-tag{
-    font-size:10px;padding:3px 8px;border-radius:6px;
-    background:rgba(138,160,189,.15);color:var(--muted);
-    font-weight:700;text-transform:uppercase;letter-spacing:.1em;
-  }
-
-  .step-indicator{
-    display:flex;align-items:center;gap:0;
-    margin-bottom:32px;
-  }
-  .step-item{
-    display:flex;align-items:center;gap:10px;
-    flex:1;
-  }
-  .step-num{
-    width:38px;height:38px;border-radius:50%;
-    border:2px solid var(--border);
-    display:grid;place-items:center;
-    font-family:'Russo One',sans-serif;font-size:16px;
-    color:var(--muted);
-    transition:all .3s;
-    flex-shrink:0;
-  }
-  .step-item.active .step-num{
-    border-color:var(--cyan);
-    background:var(--cyan);
-    color:#001824;
-  }
-  .step-item.done .step-num{
-    border-color:var(--green);
-    background:var(--green);
-    color:#001a0e;
-  }
-  .step-label{
-    font-size:12px;font-weight:700;
-    text-transform:uppercase;letter-spacing:.1em;
-    color:var(--muted);
-    transition:color .3s;
-    white-space:nowrap;
-  }
+  .pkg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+  .pkg-tag{font-size:10px;padding:3px 8px;border-radius:6px;background:rgba(138,160,189,.15);color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+  .step-indicator{display:flex;align-items:center;gap:0;margin-bottom:32px}
+  .step-item{display:flex;align-items:center;gap:10px;flex:1}
+  .step-num{width:38px;height:38px;border-radius:50%;border:2px solid var(--border);display:grid;place-items:center;font-family:'Russo One',sans-serif;font-size:16px;color:var(--muted);transition:all .3s;flex-shrink:0}
+  .step-item.active .step-num{border-color:var(--cyan);background:var(--cyan);color:#001824}
+  .step-item.done .step-num{border-color:var(--green);background:var(--green);color:#001a0e}
+  .step-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);transition:color .3s;white-space:nowrap}
   .step-item.active .step-label{color:var(--cyan)}
   .step-item.done .step-label{color:var(--green)}
-  .step-line{
-    flex:1;height:2px;
-    background:var(--border);
-    margin:0 12px;
-    transition:background .3s;
-  }
+  .step-line{flex:1;height:2px;background:var(--border);margin:0 12px;transition:background .3s}
   .step-line.done{background:var(--green)}
-
   .form-step{display:none}
   .form-step.active{display:block;animation:fadeIn .5s ease}
   @keyframes fadeIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
-
-  .check-box{
-    display:flex;align-items:flex-start;gap:12px;
-    padding:16px;
-    background:rgba(5,10,20,.4);
-    border:1.5px solid var(--border);
-    border-radius:12px;
-    cursor:pointer;
-    transition:all .3s;
-  }
+  .check-box{display:flex;align-items:flex-start;gap:12px;padding:16px;background:rgba(5,10,20,.4);border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all .3s}
   .check-box:hover{border-color:rgba(0,229,255,.4)}
-  .check-box.checked{
-    border-color:var(--cyan);
-    background:rgba(0,229,255,.04);
-  }
-  .check-mark{
-    width:22px;height:22px;border-radius:6px;
-    border:2px solid var(--muted);
-    flex-shrink:0;
-    display:grid;place-items:center;
-    transition:all .3s;
-    margin-top:1px;
-  }
-  .check-box.checked .check-mark{
-    border-color:var(--cyan);
-    background:var(--cyan);
-    color:#001824;
-  }
+  .check-box.checked{border-color:var(--cyan);background:rgba(0,229,255,.04)}
+  .check-mark{width:22px;height:22px;border-radius:6px;border:2px solid var(--muted);flex-shrink:0;display:grid;place-items:center;transition:all .3s;margin-top:1px}
+  .check-box.checked .check-mark{border-color:var(--cyan);background:var(--cyan);color:#001824}
   .check-mark i{opacity:0;transition:opacity .3s;font-size:12px}
   .check-box.checked .check-mark i{opacity:1}
-
-  .summary-row{
-    display:flex;justify-content:space-between;align-items:center;
-    padding:14px 0;
-    border-bottom:1px solid var(--border);
-  }
+  .summary-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--border)}
   .summary-row:last-child{border-bottom:none}
   .summary-label{color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:.05em}
   .summary-value{font-weight:600;font-size:16px}
-
-  .success-overlay{
-    position:fixed;inset:0;z-index:100;
-    background:rgba(5,10,20,.92);
-    backdrop-filter:blur(10px);
-    display:none;align-items:center;justify-content:center;
-    padding:20px;
-  }
-  .success-overlay.show{display:flex;animation:fadeIn .4s ease}
-  .success-card{
-    background:linear-gradient(180deg, rgba(15,34,64,.95), rgba(10,22,40,.95));
-    border:1px solid var(--cyan);
-    border-radius:24px;
-    padding:40px;
-    max-width:480px;width:100%;
-    text-align:center;
-    box-shadow:0 0 60px rgba(0,229,255,.2);
-  }
-  .success-icon{
-    width:80px;height:80px;border-radius:50%;
-    background:rgba(44,255,154,.15);
-    border:2px solid var(--green);
-    display:grid;place-items:center;
-    margin:0 auto 20px;
-    font-size:36px;color:var(--green);
-    animation:pop .5s ease;
-  }
-  @keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.1)}100%{transform:scale(1)}}
-
-  .gender-btn{
-    flex:1;padding:12px;
-    background:rgba(5,10,20,.4);
-    border:1.5px solid var(--border);
-    border-radius:12px;
-    text-align:center;cursor:pointer;
-    transition:all .3s;
-    font-weight:600;
-  }
-  .gender-btn.selected{
-    border-color:var(--cyan);
-    background:rgba(0,229,255,.06);
-    color:var(--cyan);
-  }
-
+  .gender-btn{flex:1;padding:12px;background:rgba(5,10,20,.4);border:1.5px solid var(--border);border-radius:12px;text-align:center;cursor:pointer;transition:all .3s;font-weight:600}
+  .gender-btn.selected{border-color:var(--cyan);background:rgba(0,229,255,.06);color:var(--cyan)}
   ::-webkit-scrollbar{width:10px;height:10px}
   ::-webkit-scrollbar-track{background:var(--ink)}
   ::-webkit-scrollbar-thumb{background:var(--ink-3);border-radius:5px}
   ::-webkit-scrollbar-thumb:hover{background:var(--cyan)}
-
-  @media (max-width:768px){
-    .step-label{display:none}
-    .step-line{margin:0 6px}
-    .form-card{padding:24px}
-  }
+  @media (max-width:768px){.step-label{display:none}.step-line{margin:0 6px}.form-card{padding:24px}}
 </style>
 </head>
 <body>
@@ -351,7 +121,6 @@
 
 <main class="py-12 min-h-screen">
   <div class="max-w-3xl mx-auto px-6">
-
     <div class="text-center mb-8">
       <div class="pill mb-4"><span class="dot"></span> Banua Duathlon Challenge 4 · 2026</div>
       <h1 class="font-display text-3xl md:text-5xl uppercase leading-none">Form <span style="color:var(--cyan)">Registrasi</span></h1>
@@ -359,35 +128,20 @@
     </div>
 
     <div class="step-indicator" id="stepIndicator">
-      <div class="step-item active" data-step="1">
-        <div class="step-num">1</div>
-        <div class="step-label">Paket</div>
-      </div>
+      <div class="step-item active" data-step="1"><div class="step-num">1</div><div class="step-label">Paket</div></div>
       <div class="step-line"></div>
-      <div class="step-item" data-step="2">
-        <div class="step-num">2</div>
-        <div class="step-label">Data Diri</div>
-      </div>
+      <div class="step-item" data-step="2"><div class="step-num">2</div><div class="step-label">Data Diri</div></div>
       <div class="step-line"></div>
-      <div class="step-item" data-step="3">
-        <div class="step-num">3</div>
-        <div class="step-label">Detail</div>
-      </div>
+      <div class="step-item" data-step="3"><div class="step-num">3</div><div class="step-label">Detail</div></div>
       <div class="step-line"></div>
-      <div class="step-item" data-step="4">
-        <div class="step-num">4</div>
-        <div class="step-label">Konfirmasi</div>
-      </div>
+      <div class="step-item" data-step="4"><div class="step-num">4</div><div class="step-label">Konfirmasi</div></div>
     </div>
 
     <form id="regForm" class="form-card" novalidate>
-
       <div class="form-step active" data-step="1">
         <h2 class="font-display text-xl mb-2">Pilih Paket Pendaftaran</h2>
         <p class="text-[var(--muted)] text-sm mb-6">Pilih kategori yang sesuai. Harga sesuai periode aktif.</p>
-
         <div class="space-y-3" id="pkgList">
-          
           <label class="pkg-option" data-pkg="earlybird">
             <div class="pkg-radio"></div>
             <div class="pkg-dot" style="background:var(--green);box-shadow:0 0 8px var(--green)"></div>
@@ -399,7 +153,6 @@
               <div class="text-sm text-[var(--muted)]">Periode pembukaan · hemat 21%</div>
             </div>
           </label>
-
           <div class="pkg-option disabled">
             <div class="pkg-radio"></div>
             <div class="pkg-dot" style="background:var(--blue)"></div>
@@ -411,7 +164,6 @@
               <div class="text-sm text-[var(--muted)]">Periode reguler</div>
             </div>
           </div>
-
           <div class="pkg-option disabled">
             <div class="pkg-radio"></div>
             <div class="pkg-dot" style="background:var(--red)"></div>
@@ -423,7 +175,6 @@
               <div class="text-sm text-[var(--muted)]">Last minute · slot terbatas</div>
             </div>
           </div>
-
           <label class="pkg-option group-sel-option" data-pkg="group">
             <div class="pkg-radio"></div>
             <div class="pkg-dot" style="background:var(--orange);box-shadow:0 0 8px var(--orange)"></div>
@@ -436,8 +187,7 @@
             </div>
           </label>
         </div>
-
-        <div id="groupFields" style="display:none" class="mt-4 p-4 rounded-xl" >
+        <div id="groupFields" style="display:none" class="mt-4 p-4 rounded-xl">
           <div class="text-sm font-semibold mb-3" style="color:var(--orange)"><i class="fa-solid fa-users mr-2"></i>Detail Tim</div>
           <div class="grid md:grid-cols-2 gap-4">
             <div>
@@ -452,20 +202,15 @@
             </div>
           </div>
         </div>
-
         <div class="form-error mt-4" id="err-pkg" style="display:none;font-size:14px"><i class="fa-solid fa-circle-exclamation mr-1"></i> Silakan pilih salah satu paket</div>
-
         <div class="flex justify-end mt-8">
-          <button type="button" class="cta-btn cta-cyan !px-8" onclick="nextStep()">
-            Lanjutkan <i class="fa-solid fa-arrow-right"></i>
-          </button>
+          <button type="button" class="cta-btn cta-cyan !px-8" onclick="nextStep()">Lanjutkan <i class="fa-solid fa-arrow-right"></i></button>
         </div>
       </div>
 
       <div class="form-step" data-step="2">
         <h2 class="font-display text-xl mb-2">Data Diri Peserta</h2>
         <p class="text-[var(--muted)] text-sm mb-6">Isi sesuai dokumen identitas resmi (KTP/SIM).</p>
-
         <div class="grid md:grid-cols-2 gap-4">
           <div class="md:col-span-2">
             <label class="form-label">Nama Lengkap <span class="req">*</span></label>
@@ -515,21 +260,15 @@
             <input type="text" class="form-input" id="zipCode" placeholder="70xxx" maxlength="5">
           </div>
         </div>
-
         <div class="flex justify-between mt-8">
-          <button type="button" class="cta-btn cta-outline !px-6" onclick="prevStep()">
-            <i class="fa-solid fa-arrow-left"></i> Kembali
-          </button>
-          <button type="button" class="cta-btn cta-cyan !px-8" onclick="nextStep()">
-            Lanjutkan <i class="fa-solid fa-arrow-right"></i>
-          </button>
+          <button type="button" class="cta-btn cta-outline !px-6" onclick="prevStep()"><i class="fa-solid fa-arrow-left"></i> Kembali</button>
+          <button type="button" class="cta-btn cta-cyan !px-8" onclick="nextStep()">Lanjutkan <i class="fa-solid fa-arrow-right"></i></button>
         </div>
       </div>
 
       <div class="form-step" data-step="3">
         <h2 class="font-display text-xl mb-2">Detail Race &amp; Darurat</h2>
         <p class="text-[var(--muted)] text-sm mb-6">Informasi teknis race dan kontak darurat.</p>
-
         <div class="grid md:grid-cols-2 gap-4">
           <div>
             <label class="form-label">Kategori Umur <span class="req">*</span></label>
@@ -558,11 +297,7 @@
             <label class="form-label">Golongan Darah <span class="req">*</span></label>
             <select class="form-input" id="bloodType">
               <option value="">— Pilih —</option>
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="AB">AB</option>
-              <option value="O">O</option>
-              <option value="Tidak Tahu">Tidak Tahu</option>
+              <option value="A">A</option><option value="B">B</option><option value="AB">AB</option><option value="O">O</option><option value="Tidak Tahu">Tidak Tahu</option>
             </select>
             <div class="form-error" id="err-bloodType">Pilih golongan darah</div>
           </div>
@@ -570,10 +305,7 @@
             <label class="form-label">Tipe Sepeda</label>
             <select class="form-input" id="bikeType">
               <option value="">— Pilih —</option>
-              <option value="Road Bike">Road Bike</option>
-              <option value="Triathlon Bike">Triathlon Bike</option>
-              <option value="Mountain Bike">Mountain Bike</option>
-              <option value="Lainnya">Lainnya</option>
+              <option value="Road Bike">Road Bike</option><option value="Triathlon Bike">Triathlon Bike</option><option value="Mountain Bike">Mountain Bike</option><option value="Lainnya">Lainnya</option>
             </select>
           </div>
           <div class="md:col-span-2">
@@ -594,31 +326,20 @@
             <label class="form-label">Hubungan <span class="req">*</span></label>
             <select class="form-input" id="emergencyRel">
               <option value="">— Pilih —</option>
-              <option value="Orang Tua">Orang Tua</option>
-              <option value="Pasangan">Pasangan</option>
-              <option value="Saudara">Saudara</option>
-              <option value="Anak">Anak</option>
-              <option value="Teman">Teman</option>
-              <option value="Lainnya">Lainnya</option>
+              <option value="Orang Tua">Orang Tua</option><option value="Pasangan">Pasangan</option><option value="Saudara">Saudara</option><option value="Anak">Anak</option><option value="Teman">Teman</option><option value="Lainnya">Lainnya</option>
             </select>
             <div class="form-error" id="err-emergencyRel">Pilih hubungan</div>
           </div>
         </div>
-
         <div class="flex justify-between mt-8">
-          <button type="button" class="cta-btn cta-outline !px-6" onclick="prevStep()">
-            <i class="fa-solid fa-arrow-left"></i> Kembali
-          </button>
-          <button type="button" class="cta-btn cta-cyan !px-8" onclick="nextStep()">
-            Lanjutkan <i class="fa-solid fa-arrow-right"></i>
-          </button>
+          <button type="button" class="cta-btn cta-outline !px-6" onclick="prevStep()"><i class="fa-solid fa-arrow-left"></i> Kembali</button>
+          <button type="button" class="cta-btn cta-cyan !px-8" onclick="nextStep()">Lanjutkan <i class="fa-solid fa-arrow-right"></i></button>
         </div>
       </div>
 
       <div class="form-step" data-step="4">
         <h2 class="font-display text-xl mb-2">Konfirmasi &amp; Persetujuan</h2>
         <p class="text-[var(--muted)] text-sm mb-6">Tinjau data Anda sebelum mengirim.</p>
-
         <div class="rounded-xl p-5 mb-6" style="background:rgba(0,229,255,.04);border:1px solid var(--border)">
           <div class="text-xs uppercase tracking-widest text-[var(--cyan)] mb-3"><i class="fa-solid fa-receipt mr-1"></i> Ringkasan Registrasi</div>
           <div id="summaryBox">
@@ -633,57 +354,31 @@
             <div class="summary-row"><span class="summary-label">Kontak Darurat</span><span class="summary-value" id="sm-emg">—</span></div>
           </div>
         </div>
-
         <div class="space-y-3 mb-6">
           <div class="check-box" id="agree1" onclick="toggleCheck('agree1')">
             <div class="check-mark"><i class="fa-solid fa-check"></i></div>
             <div class="text-sm leading-relaxed">Saya menyatakan bahwa data yang saya berikan adalah <strong>benar dan akurat</strong>. Jika ditemukan kecurangan, panitia berhak mendiskualifikasi tanpa pengembalian biaya.</div>
           </div>
           <div class="form-error" id="err-agree1" style="display:none;font-size:14px">Anda harus menyetujui pernyataan ini</div>
-
           <div class="check-box" id="agree2" onclick="toggleCheck('agree2')">
             <div class="check-mark"><i class="fa-solid fa-check"></i></div>
             <div class="text-sm leading-relaxed">Saya memahami bahwa olahraga duathlon memiliki <strong>risiko cedera</strong>. Saya mengikuti event ini atas kemauan sendiri dan melepaskan panitia dari tuntutan hukum atas cedera yang mungkin terjadi.</div>
           </div>
           <div class="form-error" id="err-agree2" style="display:none;font-size:14px">Anda harus menyetujui pernyataan ini</div>
-
           <div class="check-box" id="agree3" onclick="toggleCheck('agree3')">
             <div class="check-mark"><i class="fa-solid fa-check"></i></div>
             <div class="text-sm leading-relaxed">Saya bersedia <strong>mematuhi seluruh aturan</strong> race yang tertuang dalam rulebook BDC 4 — 2026.</div>
           </div>
           <div class="form-error" id="err-agree3" style="display:none;font-size:14px">Anda harus menyetujui pernyataan ini</div>
         </div>
-
         <div class="flex justify-between mt-8">
-          <button type="button" class="cta-btn cta-outline !px-6" onclick="prevStep()">
-            <i class="fa-solid fa-arrow-left"></i> Kembali
-          </button>
-          <button type="submit" class="cta-btn cta-orange !px-10">
-            <i class="fa-solid fa-paper-plane"></i> Kirim Registrasi
-          </button>
+          <button type="button" class="cta-btn cta-outline !px-6" onclick="prevStep()"><i class="fa-solid fa-arrow-left"></i> Kembali</button>
+          <button type="submit" class="cta-btn cta-orange !px-10"><i class="fa-solid fa-paper-plane"></i> Lanjut ke Pembayaran</button>
         </div>
       </div>
-
     </form>
   </div>
 </main>
-
-<div class="success-overlay" id="successOverlay">
-  <div class="success-card">
-    <div class="success-icon"><i class="fa-solid fa-check"></i></div>
-    <h2 class="font-display text-2xl mb-2">Registrasi Berhasil!</h2>
-    <p class="text-[var(--muted)] mb-6">Data Anda telah terkirim. Tim panitia akan menghubungi Anda via email/WhatsApp dalam 1×24 jam untuk instruksi pembayaran.</p>
-    <div class="rounded-xl p-4 mb-6" style="background:rgba(0,229,255,.06);border:1px solid var(--border)">
-      <div class="text-xs uppercase tracking-widest text-[var(--muted)]">Nomor Registrasi</div>
-      <div class="font-display text-2xl mt-1" style="color:var(--cyan)" id="regId">BDC4-XXXXXX</div>
-    </div>
-    <div class="flex flex-col gap-3">
-      <a href="index.html" class="cta-btn cta-cyan !w-full">
-        <i class="fa-solid fa-house"></i> Kembali ke Beranda
-      </a>
-    </div>
-  </div>
-</div>
 
 <footer class="border-t border-[var(--border)] py-8">
   <div class="max-w-7xl mx-auto px-6 text-center text-sm text-[var(--muted)]">
@@ -692,10 +387,7 @@
 </footer>
 
 <script>
-  var currentStep = 1;
-  var totalSteps = 4;
-  var selectedPkg = null;
-  var selectedGender = null;
+  var currentStep = 1, totalSteps = 4, selectedPkg = null, selectedGender = null;
   var pkgPrices = {
     earlybird: { name:'Early Bird', price:'Rp275.000', perPerson:false },
     group:     { name:'Group (min. 5)', price:'Rp325.000/orang', perPerson:true }
@@ -703,9 +395,7 @@
 
   var params = new URLSearchParams(window.location.search);
   var urlPkg = params.get('pkg');
-  if (urlPkg && pkgPrices[urlPkg]) {
-    selectPkg(urlPkg);
-  }
+  if (urlPkg && pkgPrices[urlPkg]) selectPkg(urlPkg);
 
   function selectPkg(pkg) {
     selectedPkg = pkg;
@@ -715,77 +405,51 @@
         el.classList.add('selected');
         if (pkg === 'group') {
           el.classList.add('group-sel');
-          document.getElementById('groupFields').style.display = 'block';
-          document.getElementById('groupFields').style.background = 'rgba(255,107,26,.06)';
-          document.getElementById('groupFields').style.border = '1px solid rgba(255,107,26,.3)';
+          var gf = document.getElementById('groupFields');
+          gf.style.display = 'block'; gf.style.background = 'rgba(255,107,26,.06)'; gf.style.border = '1px solid rgba(255,107,26,.3)';
         }
       }
     });
-    if (pkg !== 'group') {
-      document.getElementById('groupFields').style.display = 'none';
-    }
+    if (pkg !== 'group') document.getElementById('groupFields').style.display = 'none';
     document.getElementById('err-pkg').style.display = 'none';
   }
 
   document.querySelectorAll('.pkg-option:not(.disabled)').forEach(function(el) {
-    el.addEventListener('click', function(e) {
-      e.preventDefault();
-      selectPkg(el.dataset.pkg);
-    });
+    el.addEventListener('click', function(e) { e.preventDefault(); selectPkg(el.dataset.pkg); });
   });
 
   document.querySelectorAll('.gender-btn').forEach(function(el) {
     el.addEventListener('click', function() {
       document.querySelectorAll('.gender-btn').forEach(function(b){ b.classList.remove('selected'); });
-      el.classList.add('selected');
-      selectedGender = el.dataset.gender;
+      el.classList.add('selected'); selectedGender = el.dataset.gender;
       document.getElementById('err-gender').classList.remove('show');
     });
   });
 
   function toggleCheck(id) {
     document.getElementById(id).classList.toggle('checked');
-    var errId = 'err-' + id;
-    var errEl = document.getElementById(errId);
+    var errEl = document.getElementById('err-' + id);
     if (errEl) errEl.style.display = 'none';
   }
 
   function showError(field, show) {
-    var err = document.getElementById('err-' + field);
-    var input = document.getElementById(field);
-    if (err) {
-      if (show) err.classList.add('show');
-      else err.classList.remove('show');
-    }
-    if (input && input.classList) {
-      if (show) input.classList.add('invalid');
-      else input.classList.remove('invalid');
-    }
+    var err = document.getElementById('err-' + field), input = document.getElementById(field);
+    if (err) { if (show) err.classList.add('show'); else err.classList.remove('show'); }
+    if (input && input.classList) { if (show) input.classList.add('invalid'); else input.classList.remove('invalid'); }
   }
 
   function validateStep(step) {
     var valid = true;
     if (step === 1) {
-      if (!selectedPkg) {
-        document.getElementById('err-pkg').style.display = 'block';
-        valid = false;
-      }
+      if (!selectedPkg) { document.getElementById('err-pkg').style.display = 'block'; valid = false; }
       if (selectedPkg === 'group') {
-        var tn = document.getElementById('teamName').value.trim();
-        var tc = parseInt(document.getElementById('teamCount').value);
+        var tn = document.getElementById('teamName').value.trim(), tc = parseInt(document.getElementById('teamCount').value);
         if (!tn) { showError('teamName', true); valid = false; } else showError('teamName', false);
         if (!tc || tc < 5) { showError('teamCount', true); valid = false; } else showError('teamCount', false);
       }
     }
     if (step === 2) {
-      var fullName = document.getElementById('fullName').value.trim();
-      var email = document.getElementById('email').value.trim();
-      var phone = document.getElementById('phone').value.trim();
-      var birthDate = document.getElementById('birthDate').value;
-      var idNumber = document.getElementById('idNumber').value.trim();
-      var address = document.getElementById('address').value.trim();
-      var city = document.getElementById('city').value.trim();
-
+      var fullName = document.getElementById('fullName').value.trim(), email = document.getElementById('email').value.trim(), phone = document.getElementById('phone').value.trim(), birthDate = document.getElementById('birthDate').value, idNumber = document.getElementById('idNumber').value.trim(), address = document.getElementById('address').value.trim(), city = document.getElementById('city').value.trim();
       if (!fullName) { showError('fullName', true); valid = false; } else showError('fullName', false);
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError('email', true); valid = false; } else showError('email', false);
       if (!phone || phone.replace(/\D/g,'').length < 10) { showError('phone', true); valid = false; } else showError('phone', false);
@@ -796,13 +460,7 @@
       if (!city) { showError('city', true); valid = false; } else showError('city', false);
     }
     if (step === 3) {
-      var ageCategory = document.getElementById('ageCategory').value;
-      var jerseySize = document.getElementById('jerseySize').value;
-      var bloodType = document.getElementById('bloodType').value;
-      var emergencyName = document.getElementById('emergencyName').value.trim();
-      var emergencyPhone = document.getElementById('emergencyPhone').value.trim();
-      var emergencyRel = document.getElementById('emergencyRel').value;
-
+      var ageCategory = document.getElementById('ageCategory').value, jerseySize = document.getElementById('jerseySize').value, bloodType = document.getElementById('bloodType').value, emergencyName = document.getElementById('emergencyName').value.trim(), emergencyPhone = document.getElementById('emergencyPhone').value.trim(), emergencyRel = document.getElementById('emergencyRel').value;
       if (!ageCategory) { showError('ageCategory', true); valid = false; } else showError('ageCategory', false);
       if (!jerseySize) { showError('jerseySize', true); valid = false; } else showError('jerseySize', false);
       if (!bloodType) { showError('bloodType', true); valid = false; } else showError('bloodType', false);
@@ -811,9 +469,7 @@
       if (!emergencyRel) { showError('emergencyRel', true); valid = false; } else showError('emergencyRel', false);
     }
     if (step === 4) {
-      var a1 = document.getElementById('agree1').classList.contains('checked');
-      var a2 = document.getElementById('agree2').classList.contains('checked');
-      var a3 = document.getElementById('agree3').classList.contains('checked');
+      var a1 = document.getElementById('agree1').classList.contains('checked'), a2 = document.getElementById('agree2').classList.contains('checked'), a3 = document.getElementById('agree3').classList.contains('checked');
       document.getElementById('err-agree1').style.display = a1 ? 'none' : 'block';
       document.getElementById('err-agree2').style.display = a2 ? 'none' : 'block';
       document.getElementById('err-agree3').style.display = a3 ? 'none' : 'block';
@@ -830,15 +486,12 @@
       else if (s === currentStep) el.classList.add('active');
     });
     document.querySelectorAll('.step-line').forEach(function(el, i) {
-      if (i < currentStep - 1) el.classList.add('done');
-      else el.classList.remove('done');
+      if (i < currentStep - 1) el.classList.add('done'); else el.classList.remove('done');
     });
   }
 
   function showStep(step) {
-    document.querySelectorAll('.form-step').forEach(function(el) {
-      el.classList.remove('active');
-    });
+    document.querySelectorAll('.form-step').forEach(function(el) { el.classList.remove('active'); });
     document.querySelector('.form-step[data-step="' + step + '"]').classList.add('active');
     updateStepIndicator();
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -847,18 +500,12 @@
   function nextStep() {
     if (!validateStep(currentStep)) return;
     if (currentStep < totalSteps) {
-      currentStep++;
-      showStep(currentStep);
+      currentStep++; showStep(currentStep);
       if (currentStep === 4) fillSummary();
     }
   }
 
-  function prevStep() {
-    if (currentStep > 1) {
-      currentStep--;
-      showStep(currentStep);
-    }
-  }
+  function prevStep() { if (currentStep > 1) { currentStep--; showStep(currentStep); } }
 
   function fillSummary() {
     var pkg = selectedPkg ? pkgPrices[selectedPkg] : null;
@@ -870,24 +517,33 @@
     document.getElementById('sm-age').textContent = document.getElementById('ageCategory').value || '—';
     document.getElementById('sm-jersey').textContent = document.getElementById('jerseySize').value || '—';
     document.getElementById('sm-blood').textContent = document.getElementById('bloodType').value || '—';
-    var emgName = document.getElementById('emergencyName').value;
-    var emgPhone = document.getElementById('emergencyPhone').value;
+    var emgName = document.getElementById('emergencyName').value, emgPhone = document.getElementById('emergencyPhone').value;
     document.getElementById('sm-emg').textContent = emgName ? (emgName + ' (' + emgPhone + ')') : '—';
   }
 
   document.getElementById('regForm').addEventListener('submit', function(e) {
     e.preventDefault();
     if (!validateStep(4)) return;
+    
     var regId = 'BDC4-' + Math.random().toString(36).substr(2, 6).toUpperCase();
-    document.getElementById('regId').textContent = regId;
-    document.getElementById('successOverlay').classList.add('show');
+    var name = document.getElementById('fullName').value.trim();
+    var pkg = selectedPkg ? pkgPrices[selectedPkg].name : '';
+    var price = selectedPkg ? pkgPrices[selectedPkg].price : '';
+    
+    // ARAHAN KE qris.html
+    var queryParams = new URLSearchParams({
+      regId: regId,
+      name: name,
+      pkg: pkg,
+      price: price
+    });
+    
+    window.location.href = 'qris.html?' + queryParams.toString();
   });
 
   document.addEventListener('mousemove', function(e) {
-    var x = (e.clientX / window.innerWidth - .5);
-    var y = (e.clientY / window.innerHeight - .5);
-    var o1 = document.querySelector('.orb-1');
-    var o2 = document.querySelector('.orb-2');
+    var x = (e.clientX / window.innerWidth - .5), y = (e.clientY / window.innerHeight - .5);
+    var o1 = document.querySelector('.orb-1'), o2 = document.querySelector('.orb-2');
     if (o1) o1.style.transform = 'translate(' + (x*30) + 'px,' + (y*30) + 'px)';
     if (o2) o2.style.transform = 'translate(' + (-x*40) + 'px,' + (-y*40) + 'px)';
   });
