@@ -679,15 +679,15 @@
           <div class="space-y-3 text-sm">
             <div class="flex justify-between items-center pb-3 border-b border-[var(--border)]">
               <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full" style="background:var(--green)"></span> Early Bird</span>
-              <span class="font-semibold">1 Feb – 31 Mar 2026</span>
+              <span class="font-semibold" id="earlyBirdDate">Hari Ini</span>
             </div>
             <div class="flex justify-between items-center pb-3 border-b border-[var(--border)]">
               <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full" style="background:var(--blue)"></span> Normal</span>
-              <span class="font-semibold">1 Apr – 15 Jul 2026</span>
+              <span class="font-semibold" id="normalDate">Setelah Early Bird</span>
             </div>
             <div class="flex justify-between items-center">
               <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full" style="background:var(--red)"></span> Late</span>
-              <span class="font-semibold">16 Jul – 10 Agu 2026</span>
+              <span class="font-semibold" id="lateDate">Sebelum Hari H</span>
             </div>
           </div>
         </div>
@@ -854,6 +854,22 @@
     else topbar.classList.remove('scrolled');
   });
 
+  // Dynamic Registration Dates
+  const today = new Date();
+  const ebEnd = new Date(today.getFullYear(), today.getMonth() + 2, today.getDate());
+  const nmEnd = new Date(today.getFullYear(), today.getMonth() + 4, today.getDate());
+  const ltEnd = new Date(2026, 7, 10); // 10 Agustus 2026
+
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
+  function formatDate(date) {
+    return date.getDate() + ' ' + monthNames[date.getMonth()] + ' ' + date.getFullYear();
+  }
+
+  document.getElementById('earlyBirdDate').textContent = formatDate(today) + ' – ' + formatDate(ebEnd);
+  document.getElementById('normalDate').textContent = formatDate(ebEnd) + ' – ' + formatDate(nmEnd);
+  document.getElementById('lateDate').textContent = formatDate(nmEnd) + ' – ' + formatDate(ltEnd);
+
+  // Countdown Race Day
   const raceDate = new Date('2026-08-29T06:00:00+08:00').getTime();
   function updateCountdown(){
     const now = Date.now();
